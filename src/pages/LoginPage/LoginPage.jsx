@@ -119,17 +119,17 @@ export default function LoginPage() {
   const dispatch = useDispatch();
   const [loginUser, { data, isLoading, isSuccess, isError, error }] = useLoginUserMutation();
 
-  const handleClickPassword = () => {
+  const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
   const handleHidePassword = e => {
-    e.preventDefault()
+    e.preventDefault();
   }
 
   const handleSubmit = async e => {
     e.preventDefault();
-    await loginUser({ email: email, password: password });
+    await loginUser ({ email: email, password: password });
     setEmail('');
     setPassword('');
   };
@@ -176,7 +176,7 @@ export default function LoginPage() {
       });
     }
   },
-  [dispatch, isSuccess, isError, error?.originalStatus, error?.status]);
+  [dispatch, data, isSuccess, isError, error?.originalStatus, error?.status]);
 
   return (
     <Box
@@ -201,10 +201,10 @@ export default function LoginPage() {
         onChange={handleChange}
         required
       />
-      <FormControl>
+      <FormControl variant="outlined">
         <InputLabel
           htmlFor='outlined-adornment-password'
-          sx={{lineHeight: '2rem'}}
+          sx={{lineHeight: '2em'}}
         >
           Password
         </InputLabel>
@@ -220,7 +220,7 @@ export default function LoginPage() {
             <InputAdornment position='end'>
               <IconButton
                 aria-label='toggle password visibility'
-                onClick={handleClickPassword}
+                onClick={handleShowPassword}
                 onMouseDown={handleHidePassword}
                 edge='end'
               >
@@ -228,7 +228,7 @@ export default function LoginPage() {
               </IconButton>
             </InputAdornment>
           }
-          sx={{m: '1 rem 0', lineHeight: '4em'}}
+          sx={{m: '1rem 0', lineHeight: '4em'}}
         />
       </FormControl>
       <Button

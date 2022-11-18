@@ -12,10 +12,10 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 
 
 
-export default function UserMenu  () {
+export default function UserMenu () {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [logOutApi, { isLoading, isSuccess, isError, error}] = useLogoutUserMutation;
+    const [LogOutApi, { isLoading, isSuccess, isError, error}] = useLogoutUserMutation();
     const isToken = useSelector(getToken);
     const [isSkip, setIsSkip] = useState(false);
     const { data } = useGetUserQuery(null, { skip: isSkip || !isToken });
@@ -24,7 +24,7 @@ export default function UserMenu  () {
 
     const handleLogout = async () => {
         setIsSkip(true);
-        await logOutApi();
+        await LogOutApi();
     };
 
     useEffect(() => {
@@ -58,7 +58,7 @@ export default function UserMenu  () {
                 autoClose: 3000
             });
         };
-    }, [dispatch, isLoggedOutApi, toast]);
+    }, [dispatch, isLoggedOutApi]);
 
     if (data) {
         return (

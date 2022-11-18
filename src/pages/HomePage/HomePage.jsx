@@ -6,7 +6,7 @@ export default function HomePage() {
   const isToken = useSelector(getToken);
   
   return (
-    <div textAlign="center">
+    <div textalign="center">
       <h1>Welcome to Phonebook App!</h1>
       {isToken ? <p>Welcome!</p> : <p>Register or log in, please!</p>}
       <p>Collect your contacts with Phonebook App!</p>

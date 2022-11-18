@@ -1,7 +1,8 @@
-import  ContactForm  from 'components/ContactForm/ContactForm';
+import { useState } from 'react';
+import ContactForm from 'components/ContactForm/ContactForm';
 import  ContactList  from 'components/ContactList/ContactList';
 import  Filter  from 'components/Filter/Filter';
-import { useState } from 'react';
+
 
 export default function ContactsPage() {
   const [filter, setFilter] = useState('');

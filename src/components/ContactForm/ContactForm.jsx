@@ -1,11 +1,12 @@
-import { useState} from "react";
-import { nanoid } from 'nanoid';
+import { useState, useEffect} from "react";
+// import { nanoid } from 'nanoid';
 // import { getContacts } from 'redux/selectors';
 // import { addContact } from "redux/contactsSlice";
 import { useAddContactMutation, useFetchContactsQuery } from "redux/contacts/contactsAPI";
 // import { useDispatch} from 'react-redux';
 import css from './ContactForm.module.css';
 import Loader from "components/Loader/Loader";
+import { toast } from "react-toastify";
 
 
 export default function ContactForm() {
@@ -14,20 +15,20 @@ export default function ContactForm() {
     const [phone, setPhone] = useState('');
 
     const {data} = useFetchContactsQuery();
-    const [addContact, {isLoading}] = useAddContactMutation();
+    const [addContactApi, {isLoading, isSuccess, isError, error}] = useAddContactMutation();
     // console.log(useAddContactMutation());
     // const dispatch = useDispatch();
 
-    const handleAddContact = ({ name, phone }) => {
-        const newContact = {
-            id: nanoid(),
-            name,
-            phone,
-            };
-        data.find(contact => newContact.name.toLowerCase() === contact.name.toLowerCase())
-            ? alert(`${newContact.name} is already in contacts`)
-            : addContact(newContact) && reset();
-    }
+    // const handleAddContact = ({ name, phone }) => {
+    //     const newContact = {
+    //         id: nanoid(),
+    //         name,
+    //         phone,
+    //         };
+    //     data.find(contact => newContact.name.toLowerCase() === contact.name.toLowerCase())
+    //         ? alert(`${newContact.name} is already in contacts`)
+    //         : addContactApi(newContact) && reset();
+    // }
 
     const handleChange = (e) => {
         const { name, value } = e.currentTarget;
@@ -39,20 +40,59 @@ export default function ContactForm() {
                 setPhone(value);
                 break;
             default:
-                return;
+                break;
         }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleAddContact({name, phone});
-        // reset();
-    }
 
-    const reset = () => {
+        data.some(contact => contact.name === name)
+            ? alert(`${name} is already in contacts`)
+            : addContactApi({
+                name: name,
+                phone: phone,
+            });
         setName('');
         setPhone('');
+        // handleAddContact({name, phone});
+        // reset();
+    };
+
+    // const reset = () => {
+    //     setName('');
+    //     setPhone('');
+    // }
+
+    useEffect(() => {
+    isSuccess &&
+        toast.success('Contact added successfully', {
+            position: "top-center",
+            autoClose: 3000
+        });
+    if (isError && error?.originalStatus === 404) {
+        toast.error("Sorry, we can't find this page", {
+            position: "top-center",
+            autoClose: 3000
+        });
+    } else if (isError && error?.status === 'FETCH_ERROR') {
+        toast.error('Internet is disconnected', {
+            position: "top-center",
+            autoClose: 3000
+        });
+    } else if (isError) {
+        toast.error('Something went wrong, please try again later', {
+            position: "top-center",
+            autoClose: 3000
+        });
     }
+    }, [
+        isSuccess,
+        isError,
+        error?.originalStatus,
+        error?.status,
+    ]);
+
 
     return (
             <form className={css.phonebookForm} onSubmit={handleSubmit}>

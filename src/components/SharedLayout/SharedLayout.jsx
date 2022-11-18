@@ -23,37 +23,39 @@ import UserMenu from '../UserMenu/UserMenu';
 import { Navigation } from '../Navigation/Navigation';
 import AuthMenu from '../AuthMenu/AuthMenu';
 import {
-  AppBar,
-  Stack,
-  Box,
-  Toolbar,
-  Container,
-  Typography,
+    AppBar,
+    Stack,
+    Box,
+    Toolbar,
+    Container,
+    Typography,
 } from '@mui/material';
 
 
 export default function SharedLayout() {
-  const isToken = useSelector(getToken);
+    const isToken = useSelector(getToken);
 
-  return (
-    <>
-      <Stack spacing={2} sx={{ flexGrow: 1 }}>
-          <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" color="primary">
-              <Container sx={{ mt: '1rem' }}>
-                <Toolbar>
-                  <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    <Navigation />
-                  </Typography>
-                  {isToken ? <UserMenu /> : <AuthMenu />}
-                </Toolbar>
-              </Container>
-            </AppBar>
-          </Box>
-      </Stack>
-      <Container sx={{ mt: '1rem' }}>
-        <Outlet />
-      </Container>
+    return (
+        <>
+        <Stack spacing={2} sx={{ flexGrow: 1 }}>
+            <Box sx={{ flexGrow: 1 }}>
+            <AppBar position="static" color="cornsilk">
+                <Container sx={{ mt: '1rem' }}>
+                    <Toolbar>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                        <Navigation />
+                    </Typography>
+                    {isToken ? <UserMenu /> : <AuthMenu />}
+                    </Toolbar>
+                </Container>
+                </AppBar>
+            </Box>
+        </Stack>
+            <Container sx={{ mt: '1rem' }}>
+                {/* <Suspense fallback={<Loader />}>  */}
+                    <Outlet />
+                {/* </Suspense> */}
+        </Container>
     </>
-  );
+    );
 }

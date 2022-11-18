@@ -1,9 +1,10 @@
 import css from './App.module.css'
-import { lazy} from 'react';
+import { lazy, Suspense} from 'react';
 import { Route, Routes, Navigate} from 'react-router-dom';
 import SharedLayout from './SharedLayout/SharedLayout';
 import PrivatRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import Loader from "components/Loader/Loader";
 
 
 const HomePage = lazy(() => import('pages/HomePage/HomePage'));
@@ -17,10 +18,11 @@ export default function App() {
 
   return (
     <div className={css.phonebook}>
-      {/* <Suspense fallback={<Loader />}>  */}
+      <Suspense fallback={<Loader />}> 
         <Routes>
           <Route path='/' element={<SharedLayout />} >
           <Route index element={<HomePage />} />
+
             <Route path='register' element={
               <PublicRoute>
                 <RegisterPage/>
@@ -39,7 +41,7 @@ export default function App() {
             <Route path='*' element={<Navigate to="/" replase={true} />} />
           </Route>
         </Routes>
-      {/* </Suspense> */}
+      </Suspense>
     </div>
   );
 }

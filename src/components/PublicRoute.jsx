@@ -6,7 +6,7 @@ export default function PublicRoute({ children }) {
     const isToken = useSelector(getToken);
 
     if (isToken) {
-        return <Navigate to="/contacts"  />;
+        return <Navigate to="/contacts" replace/>;
     }
 
     return children;
