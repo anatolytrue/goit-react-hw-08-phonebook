@@ -39,7 +39,7 @@ export default function SharedLayout() {
         <>
         <Stack spacing={2} sx={{ flexGrow: 1 }}>
             <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" color="cornsilk">
+            <AppBar position="static" color="secondary ">
                 <Container sx={{ mt: '1rem' }}>
                     <Toolbar>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
