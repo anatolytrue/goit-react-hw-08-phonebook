@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState} from "react";
 import { nanoid } from 'nanoid';
 // import { getContacts } from 'redux/selectors';
 // import { addContact } from "redux/contactsSlice";
-import { useAddContactMutation, useFetchContactsQuery } from "redux/contactsAPI";
+import { useAddContactMutation, useFetchContactsQuery } from "redux/contacts/contactsAPI";
 // import { useDispatch} from 'react-redux';
 import css from './ContactForm.module.css';
 import Loader from "components/Loader/Loader";
@@ -13,7 +13,7 @@ export default function ContactForm() {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
 
-    const {data: contacts} = useFetchContactsQuery();
+    const {data} = useFetchContactsQuery();
     const [addContact, {isLoading}] = useAddContactMutation();
     // console.log(useAddContactMutation());
     // const dispatch = useDispatch();
@@ -24,7 +24,7 @@ export default function ContactForm() {
             name,
             phone,
             };
-        contacts.find(contact => newContact.name.toLowerCase() === contact.name.toLowerCase())
+        data.find(contact => newContact.name.toLowerCase() === contact.name.toLowerCase())
             ? alert(`${newContact.name} is already in contacts`)
             : addContact(newContact) && reset();
     }

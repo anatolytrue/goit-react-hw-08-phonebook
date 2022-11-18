@@ -1,6 +1,6 @@
 import Loader from 'components/Loader/Loader';
-import React from 'react'
-import { useDeleteContactMutation } from 'redux/contactsAPI';
+
+import { useDeleteContactMutation } from 'redux/contacts/contactsAPI';
 import css from './ContactList.module.css';
 import PropTypes from 'prop-types';
 

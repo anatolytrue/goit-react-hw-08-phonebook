@@ -1,14 +1,15 @@
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import css from './ContactList.module.css';
 // import { deleteContact } from 'redux/contactsSlice';
 import ContactItem from './ContactItem';
-import {getFilter} from 'redux/selectors'
-import {useFetchContactsQuery } from 'redux/contactsAPI';
+// import {getFilter} from 'redux/contacts/selectors'
+import { useFetchContactsQuery } from 'redux/contacts/contactsAPI';
+import PropTypes from 'prop-types'
 
-function ContactList() {
+export default function ContactList({filter}) {
 
-    const {data =[]} = useFetchContactsQuery();
-    const { filter } = useSelector(state => getFilter(state));
+    const {data } = useFetchContactsQuery();
+    // const { filter } = useSelector(state => getFilter(state));
     // const [deleteContact, {isLoading}] = useDeleteContactMutation();
     // const dispatch = useDispatch();
     
@@ -42,4 +43,6 @@ function ContactList() {
     )
 }
 
-export default ContactList;
+ContactList.propTypes = {
+    filter: PropTypes.string.isRequired,
+};
