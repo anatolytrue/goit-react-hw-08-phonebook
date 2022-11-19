@@ -12,10 +12,10 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 
 
 
-export default function UserMenu () {
+export function UserMenu () {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [LogOutApi, { isLoading, isSuccess, isError, error}] = useLogoutUserMutation();
+    const [LogOutUserApi, { isLoading, isSuccess, isError, error}] = useLogoutUserMutation();
     const isToken = useSelector(getToken);
     const [isSkip, setIsSkip] = useState(false);
     const { data } = useGetUserQuery(null, { skip: isSkip || !isToken });
@@ -24,7 +24,7 @@ export default function UserMenu () {
 
     const handleLogout = async () => {
         setIsSkip(true);
-        await LogOutApi();
+        await LogOutUserApi();
     };
 
     useEffect(() => {
@@ -32,12 +32,12 @@ export default function UserMenu () {
             navigate('/');
             setIsLoggedOutApi(true);
         }
-        if (isError && error?.originalStatus === 400) {
+        if (isError && error?.originalStatus === 404) {
             toast.error("Sorry, can't find this page!", {
                 position: "top-center",
                 autoClose: 3000
             })
-        } else if (isError && error.status === 'FETCH_ERROR') {
+        } else if (isError && error?.status === 'FETCH_ERROR') {
             toast.error("Internet is disconnected", {
                 position: "top-center",
                 autoClose: 3000
@@ -48,7 +48,7 @@ export default function UserMenu () {
                 autoClose: 3000
             })
         }
-    }, [isError, isSuccess, navigate, error?.status, error?.originalStatus]);
+    }, [ isLoading, isError, isSuccess, navigate, error?.status, error?.originalStatus]);
 
     useEffect(() => {
         if (isLoggedOutApi) {
@@ -57,7 +57,7 @@ export default function UserMenu () {
                 position: "top-center",
                 autoClose: 3000
             });
-        };
+        }
     }, [dispatch, isLoggedOutApi]);
 
     if (data) {

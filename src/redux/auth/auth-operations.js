@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const authApi = createApi({
-    reduserPath: 'authApi',
+    reducerPath: 'authApi',
     baseQuery: fetchBaseQuery({
         baseUrl: 'https://connections-api.herokuapp.com',
         prepareHeaders: (headers, { getState }) => {
@@ -28,7 +28,7 @@ export const authApi = createApi({
                 body: {
                     name: newUser.name,
                     email: newUser.email,
-                    password: newUser.password
+                    password: newUser.password,
                 },
             }),
             invalidatesTags: ['Auth']

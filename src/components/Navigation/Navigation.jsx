@@ -18,9 +18,9 @@ export const Navigation = () => {
       <Tab value="/" component={Link} to="/" label="Home" />
       {isToken && (
         <Tab
-          value="contacts"
+          value="/contacts"
           component={Link}
-          to="contacts"
+          to="/contacts"
           label="Contacts"
         />
       )}

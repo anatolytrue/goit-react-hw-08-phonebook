@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkgoit_react_hw_08_phonebook=self.webpackChunkgoit_react_hw_08_phonebook||[]).push([[680],{680:function(e,o,n){n.r(o),n.d(o,{default:function(){return h}});var c=n(5048),r=n(9869),t=n(184);function h(){var e=(0,c.v9)(r.L);return(0,t.jsxs)("div",{children:[(0,t.jsx)("h1",{children:"Welcome to Phonebook App!"}),e?(0,t.jsx)("p",{children:"Welcome!"}):(0,t.jsx)("p",{children:"Register or log in, please!"}),(0,t.jsx)("p",{children:"Collect your contacts with Phonebook App!"})]})}}}]);
+//# sourceMappingURL=680.21d230bf.chunk.js.map

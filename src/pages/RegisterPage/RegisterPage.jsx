@@ -108,7 +108,7 @@ export default function RegisterPage() {
       }}
     >
       <TextField
-        label="Mail"
+        label="Name"
         size="small"
         margin="normal"
         type="text"

@@ -203,7 +203,7 @@ export default function LoginPage() {
       />
       <FormControl variant="outlined">
         <InputLabel
-          htmlFor='outlined-adornment-password'
+          htmlFor="outlined-adornment-password"
           sx={{lineHeight: '2em'}}
         >
           Password
@@ -212,14 +212,14 @@ export default function LoginPage() {
           id="outlined-adornment-password"
           type={showPassword ? 'text' : 'password'}
           label="Password"
-          name='password'
+          name="password"
           value={password}
           onChange={handleChange}
           size="small"
           endAdornment={
-            <InputAdornment position='end'>
+            <InputAdornment position="end">
               <IconButton
-                aria-label='toggle password visibility'
+                aria-label="toggle password visibility"
                 onClick={handleShowPassword}
                 onMouseDown={handleHidePassword}
                 edge='end'
