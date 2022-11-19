@@ -33,18 +33,19 @@ import {
     createTheme,
 } from '@mui/material';
 
-const mainTheme = createTheme({
+
+const darkTheme = createTheme({
     palette: {
         mode: 'dark',
         primary: {
             main: '#FFF8DC',
-            contrastText: '010101',
+            contrastText: '#010101',
         },
         text: {
-            secondary: 'FFF8DC',
+            secondary: '#ebd683',
         },
         background: {
-            paper: '010101'
+            paper: '#3d3131'
         },
     },
 });
@@ -56,9 +57,9 @@ export default function SharedLayout() {
     return (
         <>
             <Stack spacing={2} sx={{ flexGrow: 1 }}>
-                <ThemeProvider theme={mainTheme}>
+                <ThemeProvider theme={darkTheme }>
                     <Box sx={{ flexGrow: 1 }}>
-                        <AppBar position="static" color=" primary ">
+                        <AppBar position="fixed" color="primary" >
                             <Container sx={{ mt: '1rem' }}>
                                 <Toolbar>
                                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

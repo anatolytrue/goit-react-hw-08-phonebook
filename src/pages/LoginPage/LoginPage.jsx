@@ -11,7 +11,8 @@ import {
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 // import Loader from 'components/Loader/Loader';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import { useSnackbar } from 'notistack';
 
 
   // const navigate = useNavigate();
@@ -118,6 +119,8 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const [loginUser, { data, isLoading, isSuccess, isError, error }] = useLoginUserMutation();
+  const { enqueueSnackbar } = useSnackbar();
+
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -153,41 +156,40 @@ export default function LoginPage() {
           token: data.token,
         })
       );
-      toast.success('You have logged in successfully!', {
-        position: "top-center",
-        autoClose: 3000
+      enqueueSnackbar('You have logged in successfully', {
+        variant: 'success',
       });
     }
 
-    if (isError && error?.originalStatus === 400) {
-      toast.error ("Sorry, we can't find this page!", {
-        position: "top-center",
-        autoClose: 3000
+    if (isError && error?.originalStatus === 404) {
+    enqueueSnackbar("Sorry, we can't find this page", {
+        variant: 'error',
+    });
+    } else if (isError && error?.status === 400) {
+      enqueueSnackbar('Invalid email or password', {
+        variant: 'error',
       });
     } else if (isError && error?.status === 'FETCH_ERROR') {
-      toast.error("Internet is disconnected", {
-        position: "top-center",
-        autoClose: 3000
+      enqueueSnackbar('Internet is disconnected', {
+        variant: 'error',
       });
     } else if (isError) {
-      toast.error("Something went wrong, please try again later!", {
-        position: "top-center",
-        autoClose: 3000
+      enqueueSnackbar('Something went wrong, please try again later', {
+        variant: 'error',
       });
     }
-  },
-  [dispatch, data, isSuccess, isError, error?.originalStatus, error?.status]);
+  }, [dispatch, enqueueSnackbar, data, isSuccess, isError, error?.originalStatus, error?.status]);
 
   return (
     <Box
       component="form"
       onSubmit={handleSubmit}
       sx={{
-        padding: '1.6rem',
-        maxWidth: '16rem',
+        padding: '2rem',
+        maxWidth: '20rem',
         display: 'grid',
         gridTemplateColumns: '1fr',
-        gridGap: '0.4rem',
+        gridGap: '0.3rem',
         alignItems: 'baseline',
       }}
     >

@@ -25,7 +25,7 @@ export const contactsApi = createApi({
                 method: 'POST',
                 body: {
                     name: newContact.name,
-                    phone: newContact.phone
+                    number: newContact.number
                 },
             }),
             invalidatesTags: ['Contacts'],
@@ -45,7 +45,7 @@ export const contactsApi = createApi({
                 method: 'PATCH',
                 body: {
                     name: newContact.name,
-                    phone: newContact.phone
+                    number: newContact.number
                 },
             }),
             invalidatesTags:['Contacts']

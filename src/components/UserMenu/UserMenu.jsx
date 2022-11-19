@@ -6,7 +6,8 @@ import { useGetUserQuery, useLogoutUserMutation } from "redux/auth/auth-operatio
 import { useState, useEffect } from "react";
 // import Loader from "components/Loader/Loader";
 import { getToken } from "redux/auth/auth-selectors";
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import { useSnackbar } from 'notistack';
 import { Button, CircularProgress, Typography } from '@mui/material';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 
@@ -20,6 +21,7 @@ export function UserMenu () {
     const [isSkip, setIsSkip] = useState(false);
     const { data } = useGetUserQuery(null, { skip: isSkip || !isToken });
     const [isLoggedOutApi, setIsLoggedOutApi] = useState(false);
+    const { enqueueSnackbar } = useSnackbar();
 
 
     const handleLogout = async () => {
@@ -33,32 +35,28 @@ export function UserMenu () {
             setIsLoggedOutApi(true);
         }
         if (isError && error?.originalStatus === 404) {
-            toast.error("Sorry, can't find this page!", {
-                position: "top-center",
-                autoClose: 3000
-            })
+            enqueueSnackbar("Sorry, we can't find this page", {
+            variant: 'error',
+        });
         } else if (isError && error?.status === 'FETCH_ERROR') {
-            toast.error("Internet is disconnected", {
-                position: "top-center",
-                autoClose: 3000
+            enqueueSnackbar('Internet is disconnected', {
+                variant: 'error',
             });
         } else if (isError) {
-            toast.error("Something went wrong, please try again later!", {
-                position: "top-center",
-                autoClose: 3000
-            })
+            enqueueSnackbar('Something went wrong, please try again later', {
+                variant: 'error',
+            });
         }
-    }, [ isLoading, isError, isSuccess, navigate, error?.status, error?.originalStatus]);
+    }, [ enqueueSnackbar, isLoading, isError, isSuccess, navigate, error?.status, error?.originalStatus]);
 
     useEffect(() => {
         if (isLoggedOutApi) {
             dispatch(setLogOut());
-            toast.success('You have logged out susseccfully', {
-                position: "top-center",
-                autoClose: 3000
+            enqueueSnackbar('You have logged out successfully', {
+                variant: 'success',
             });
         }
-    }, [dispatch, isLoggedOutApi]);
+    }, [dispatch, enqueueSnackbar, isLoggedOutApi]);
 
     if (data) {
         return (

@@ -15,27 +15,31 @@ export default function ContactList({filter}) {
     // const [deleteContact, {isLoading}] = useDeleteContactMutation();
     // const dispatch = useDispatch();
     
-    const getVisibleContacts = () => {
-        const normalizedFilter = filter.toLowerCase().trim();
-        return data?.filter(contact =>
-            contact.name.toLowerCase().includes(normalizedFilter))
-    }
+    // const getVisibleContacts = () => {
+    //     const normalizedFilter = filter.toLowerCase().trim();
+    //     return data?.filter(contact =>
+    //         contact.name.toLowerCase().includes(normalizedFilter))
+    // }
+
+    const getVisibleContacts = data?.filter(contact =>
+        contact.name.toLowerCase().includes(filter.toLowerCase().trim()))
+    
     
     // const handleDeleteContact = contactId =>
     //     deleteContact(contactId);
 
-    const contactsList = getVisibleContacts();
-    console.log(contactsList)
+    // const contactsList = getVisibleContacts();
+    // console.log(contactsList)
 
-    if (contactsList) {
+    if (getVisibleContacts) {
         return (
-            <List sx={{ mt: '1rem'}}>
-                {contactsList.map(({ id, name, phone }) => (
-                    <ListItem key={id} sx={{height: '30px'}}>
+            <List sx={{ mt: '0.5rem'}}>
+                {getVisibleContacts.map(({ id, name, number }) => (
+                    <ListItem key={id} sx={{height: '40px'}}>
                         <ContactItem
-                            key={id}
+                            id={id}
                             name={name}
-                            phone={phone}
+                            number={number}
                             contactId={id}
                         />
                     </ListItem>

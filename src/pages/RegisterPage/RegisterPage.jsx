@@ -16,8 +16,8 @@ import {
 } from '@mui/material';
 import AppRegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRounded';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { toast } from 'react-toastify';
-
+// import { toast } from 'react-toastify';
+import { useSnackbar } from 'notistack';
 // import Loader from 'components/Loader/Loader';
 
 
@@ -26,6 +26,7 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   // const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
   const [registerUser, {data, isLoading, isSuccess, isError, error}] = useRegisterUserMutation();
   const dispatch = useDispatch();
@@ -71,39 +72,35 @@ export default function RegisterPage() {
           token: data.token,
         })
       );
-      toast.success('You have registered successfully!', {
-        position: "top-center",
-        autoClose: 3000
+      enqueueSnackbar('You have registered successfully', {
+        variant: 'success',
       });
     }
-      if (isError && error?.originalStatus === 400) {
-      toast.error ("Sorry, can't create user!", {
-        position: "top-center",
-        autoClose: 3000
+    if (isError && error?.originalStatus === 400) {
+      enqueueSnackbar("Sorry, can't create user!", {
+        variant: 'error',
       });
     } else if (isError && error?.status === 'FETCH_ERROR') {
-      toast.error("Internet is disconnected", {
-        position: "top-center",
-        autoClose: 3000
+      enqueueSnackbar('Internet is disconnected', {
+        variant: 'error',
       });
     } else if (isError) {
-      toast.error("Something went wrong, please try again later!", {
-        position: "top-center",
-        autoClose: 3000
+      enqueueSnackbar('Something went wrong, please try again later', {
+        variant: 'error',
       });
     }
-  }, [dispatch, data, isSuccess, isError, error?.status, error?.originalStatus])
+  }, [enqueueSnackbar, dispatch, data, isSuccess, isError, error?.status, error?.originalStatus])
 
   return (
     <Box
       component="form"
       onSubmit={handleSubmitForm}
       sx={{
-        padding: '1.6rem',
-        maxWidth: '16rem',
+        padding: '2rem',
+        maxWidth: '20rem',
         display: 'grid',
         gridTemplateColumns: '1fr',
-        gridGap: '0.4rem',
+        gridGap: '0.3rem',
         alignItems: 'baseline',
       }}
     >

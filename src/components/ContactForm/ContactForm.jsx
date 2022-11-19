@@ -8,17 +8,18 @@ import  AddIcCallRoundedIcon  from '@mui/icons-material/AddIcCallRounded';
 // import { useDispatch} from 'react-redux';
 // import css from './ContactForm.module.css';
 // import Loader from "components/Loader/Loader";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import { useSnackbar } from 'notistack';
 
 
 export default function ContactForm() {
 
     const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
+    const [number, setNumber] = useState('');
 
     const {data} = useFetchContactsQuery();
     const [addContactApi, { isLoading, isSuccess, isError, error }] = useAddContactMutation();
-    
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     // console.log(useAddContactMutation());
     // const dispatch = useDispatch();
 
@@ -39,8 +40,8 @@ export default function ContactForm() {
             case "name":
                 setName(value);
                 break;
-            case "phone":
-                setPhone(value);
+            case "number":
+                setNumber(value);
                 break;
             default:
                 break;
@@ -54,10 +55,10 @@ export default function ContactForm() {
             ? alert(`${name} is already in contacts`)
             : addContactApi({
                 name: name,
-                phone: phone,
+                number: number,
             });
         setName('');
-        setPhone('');
+        setNumber('');
         // handleAddContact({name, phone});
         // reset();
     };
@@ -69,31 +70,29 @@ export default function ContactForm() {
 
     useEffect(() => {
     isSuccess &&
-        toast.success('Contact added successfully', {
-            position: "top-center",
-            autoClose: 3000
+        enqueueSnackbar('Contact added successfully', {
+            variant: 'success',
         });
     if (isError && error?.originalStatus === 404) {
-        toast.error("Sorry, we can't find this page", {
-            position: "top-center",
-            autoClose: 3000
+        enqueueSnackbar("Sorry, we can't find this page", {
+            variant: 'error',
         });
-    } else if (isError && error?.status === 'FETCH_ERROR') {
-        toast.error('Internet is disconnected', {
-            position: "top-center",
-            autoClose: 3000
+        } else if (isError && error?.status === 'FETCH_ERROR') {
+        enqueueSnackbar('Internet is disconnected', {
+            variant: 'error',
         });
-    } else if (isError) {
-        toast.error('Something went wrong, please try again later', {
-            position: "top-center",
-            autoClose: 3000
+        } else if (isError) {
+        enqueueSnackbar('Something went wrong, please try again later', {
+            variant: 'error',
         });
     }
     }, [
+        enqueueSnackbar,
         isSuccess,
         isError,
         error?.originalStatus,
         error?.status,
+        closeSnackbar,
     ]);
 
 
@@ -105,11 +104,12 @@ export default function ContactForm() {
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '20rem',
+                // justifyContent: 'center',
+                // alignItems: 'center',
+                width: '22rem',
                 border: '1px solid black',
-                padding: '20px',
+                borderRadius: '4px',
+                padding: '0 1rem',
             }}
         >
             <TextField
@@ -129,8 +129,8 @@ export default function ContactForm() {
                 size="small"
                 margin="normal"
                 type="tel"
-                name="phone"
-                value={phone}
+                name="number"
+                value={number}
                 pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                 title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                 onChange={handleChange}

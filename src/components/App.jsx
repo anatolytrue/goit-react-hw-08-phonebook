@@ -4,6 +4,7 @@ import { Route, Routes, Navigate} from 'react-router-dom';
 import SharedLayout from './SharedLayout/SharedLayout';
 import PrivatRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+// import { ToastContainer } from 'react-toastify';
 // import Loader from "components/Loader/Loader";
 
 
@@ -40,7 +41,7 @@ export default function App() {
             } />
             <Route path='*' element={<Navigate to="/" replase={true} />} />
           </Route>
-        </Routes>
+      </Routes>
       {/* </Suspense> */}
     </div>
   );
