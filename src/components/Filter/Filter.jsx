@@ -23,17 +23,6 @@ export default function Filter({filter, handleChange}) {
             onChange={e => handleChange(e.target.value)}
             sx={{width: '22rem'}}
         />
-    //     <label className={css.phonebookFilterLabel}>
-    //     Filter by name
-    //         <input
-    //             className={css.filterInput}
-    //             name="filter"
-    //             type="text"
-    //             value={filter}
-    //             onChange={handleChange}
-    //             placeholder="name surname"
-    //         />
-    // </label>
     )
 }
 

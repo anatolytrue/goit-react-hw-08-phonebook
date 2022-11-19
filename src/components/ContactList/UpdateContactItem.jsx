@@ -1,91 +1,83 @@
     import { useState, useEffect } from 'react';
-    import {
-        useFetchContactsQuery,
-        useUpdateContactMutation,
-    } from 'redux/contacts/contactsAPI';
+    import {useFetchContactsQuery, useUpdateContactMutation} from 'redux/contacts/contactsAPI';
     import { Button, TextField, Box, CircularProgress } from '@mui/material';
-   import PublishedWithChangesRoundedIcon from '@mui/icons-material/PublishedWithChangesRounded';
+    import PublishedWithChangesRoundedIcon from '@mui/icons-material/PublishedWithChangesRounded';
     import { useSnackbar } from 'notistack';
     import PropTypes from 'prop-types';
 
-    export default function UpdateContactItem({
-        id,
-        currentName,
-        currentNumber,
-        updateContact,
-        }) {
-    const [name, setName] = useState(currentName);
-    const [number, setNumber] = useState(currentNumber);
-    const { data } = useFetchContactsQuery();
-    const [updateContactApi, { isLoading, isSuccess, isError, error }] =
-        useUpdateContactMutation();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    export default function UpdateContactItem ({id, currentName, currentNumber, updateContact}) {
+        const [name, setName] = useState(currentName);
+        const [number, setNumber] = useState(currentNumber);
+        const { data } = useFetchContactsQuery();
+        const [updateContactApi, { isLoading, isSuccess, isError, error }] =
+            useUpdateContactMutation();
+        const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-    const handleSubmit = e => {
-        e.preventDefault();
+        const handleSubmit = e => {
+            e.preventDefault();
 
-        if (data.some(contact => contact.name === name && name !== currentName)) {
-            enqueueSnackbar('This contact is already in the contacts', {
-            variant: 'error',
-        });
-        } else if (name === currentName && number === currentNumber) {
-            updateContact(id);
-        } else {
-            updateContactApi({
-                id: id,
-                name: name,
-                number: number,
+            if (data.some(contact => contact.name === name && name !== currentName)) {
+                enqueueSnackbar('This contact is already in the contacts', {
+                variant: 'error',
             });
-        }
-    };
+            } else if (name === currentName && number === currentNumber) {
+                updateContact(id);
+            } else {
+                updateContactApi({
+                    id: id,
+                    name: name,
+                    number: number,
+                });
+            }
+        };
 
-    const handleChange = evt => {
-        const { name, value } = evt.target;
-        switch (name) {
-        case 'name':
-            setName(value);
-            break;
+        const handleChange = evt => {
+            const { name, value } = evt.target;
+            switch (name) {
+            case 'name':
+                setName(value);
+                break;
 
-        case 'number':
-            setNumber(value);
-            break;
+            case 'number':
+                setNumber(value);
+                break;
 
-        default:
-            break;
-        }
-    };
+            default:
+                break;
+            }
+        };
 
-    useEffect(() => {
-        if (isSuccess) {
-        updateContact(id);
-        enqueueSnackbar('Contact successfully updated', {
-            variant: 'success',
-        });
-        }
+        useEffect(() => {
+            if (isSuccess) {
+                updateContact(id);
+                enqueueSnackbar('Contact successfully updated', {
+                    variant: 'success',
+            });
+            }
 
-        if (isError && error?.originalStatus === 400) {
-        enqueueSnackbar('Error updating contact', {
-            variant: 'error',
-        });
-        } else if (isError && error?.status === 'FETCH_ERROR') {
-        enqueueSnackbar('Internet is disconnected', {
-            variant: 'error',
-        });
-        } else if (isError) {
-        enqueueSnackbar('Something went wrong, please try again later', {
-            variant: 'error',
-        });
-        }
-    }, [
-        closeSnackbar,
-        isSuccess,
-        isError,
-        enqueueSnackbar,
-        error?.originalStatus,
-        error?.status,
-        updateContact,
-        id,
-    ]);
+            if (isError && error?.originalStatus === 400) {
+                enqueueSnackbar('Error updating contact', {
+                    variant: 'error',
+            });
+            } else if (isError && error?.status === 'FETCH_ERROR') {
+                enqueueSnackbar('Internet is disconnected', {
+                    variant: 'error',
+            });
+            } else if (isError) {
+                enqueueSnackbar('Something went wrong, please try again later', {
+                    variant: 'error',
+            });
+            }
+        }, [
+            closeSnackbar,
+            isSuccess,
+            isError,
+            enqueueSnackbar,
+            error?.originalStatus,
+            error?.status,
+            updateContact,
+            id,
+        ]);
 
     return (
         <Box
@@ -109,7 +101,7 @@
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             onChange={handleChange}
             sx={{
-            width: `${Math.max(name.length / 1.75, 1)}rem`,
+                width: `${Math.max(name.length / 1.75, 1)}rem`,
             }}
             required
         />
@@ -124,8 +116,8 @@
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             onChange={handleChange}
             sx={{
-            width: `${Math.max(number.length / 1.75, 1)}rem`,
-            m: '0 1rem',
+                width: `${Math.max(number.length / 1.75, 1)}rem`,
+                m: '0 1rem',
             }}
             required
         />

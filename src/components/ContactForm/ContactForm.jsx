@@ -20,19 +20,6 @@ export default function ContactForm() {
     const {data} = useFetchContactsQuery();
     const [addContactApi, { isLoading, isSuccess, isError, error }] = useAddContactMutation();
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-    // console.log(useAddContactMutation());
-    // const dispatch = useDispatch();
-
-    // const handleAddContact = ({ name, phone }) => {
-    //     const newContact = {
-    //         id: nanoid(),
-    //         name,
-    //         phone,
-    //         };
-    //     data.find(contact => newContact.name.toLowerCase() === contact.name.toLowerCase())
-    //         ? alert(`${newContact.name} is already in contacts`)
-    //         : addContactApi(newContact) && reset();
-    // }
 
     const handleChange = (e) => {
         const { name, value } = e.currentTarget;
@@ -59,14 +46,8 @@ export default function ContactForm() {
             });
         setName('');
         setNumber('');
-        // handleAddContact({name, phone});
-        // reset();
+        
     };
-
-    // const reset = () => {
-    //     setName('');
-    //     setPhone('');
-    // }
 
     useEffect(() => {
     isSuccess &&

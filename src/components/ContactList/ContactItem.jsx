@@ -1,33 +1,3 @@
-// import Loader from 'components/Loader/Loader';
-
-// import { useDeleteContactMutation } from 'redux/contacts/contactsAPI';
-// import css from './ContactList.module.css';
-// import PropTypes from 'prop-types';
-
-// export default function ContactItem({ contactId, name, number }) {
-//     const [deleteContact, { isLoading }] = useDeleteContactMutation();
-    
-//     const handleDeleteContact = contactId =>
-//         deleteContact(contactId);
-//     return (
-//         <li className={css.phonebookContactListItem}>
-//                 <p>{name} : {number}</p>
-//                 <button type="button"
-//                     onClick={() => handleDeleteContact(contactId)}
-//                     className={css.phonebookContactListBtn}
-//                     disabled={isLoading}>
-//                     {isLoading ? <Loader/> : "Delete"}
-//                 </button>
-//         </li>
-//     )
-// }
-
-// ContactItem.propTypes = {
-//     name: PropTypes.string.isRequired,
-//     number: PropTypes.string.isRequired,
-//     contactId: PropTypes.string.isRequired,
-// };
-
 import { useState, useEffect } from 'react';
 import { useDeleteContactMutation } from 'redux/contacts/contactsAPI';
 import UpdateContactItem from './UpdateContactItem';
@@ -51,20 +21,20 @@ export default function ContactItem({ id, name, number }) {
 
     useEffect(() => {
         isSuccess &&
-        enqueueSnackbar('Contact successfully deleted', {
-            variant: 'success',
+            enqueueSnackbar('Contact successfully deleted', {
+                variant: 'success',
         });
         if (isError && error?.originalStatus === 404) {
-        enqueueSnackbar("Sorry, we can't find this page", {
-            variant: 'error',
+            enqueueSnackbar("Sorry, we can't find this page", {
+                variant: 'error',
         });
         } else if (isError && error?.status === 'FETCH_ERROR') {
-        enqueueSnackbar('Internet is disconnected', {
-            variant: 'error',
+            enqueueSnackbar('Internet is disconnected', {
+                variant: 'error',
         });
         } else if (isError) {
-        enqueueSnackbar('Something went wrong, please try again later', {
-            variant: 'error',
+            enqueueSnackbar('Something went wrong, please try again later', {
+                variant: 'error',
         });
         }
     }, [
@@ -78,7 +48,7 @@ export default function ContactItem({ id, name, number }) {
 
     useEffect(() => {
         isLoading && setLoading(true);
-    }, [isLoading]);
+        }, [isLoading]);
 
     return (
         <>
@@ -104,14 +74,14 @@ export default function ContactItem({ id, name, number }) {
         </IconButton>
         {updateContactId ? (
             <UpdateContactItem
-            id={id}
-            currentName={name}
-            currentNumber={number}
-            updateContact={updateContact}
+                id={id}
+                currentName={name}
+                currentNumber={number}
+                updateContact={updateContact}
             />
         ) : (
             <span>
-            {name}: {number}
+                {name}: {number}
             </span>
         )}
         </>

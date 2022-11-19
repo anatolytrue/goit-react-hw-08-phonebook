@@ -1,19 +1,6 @@
-// import AppBar from "components/AppBar/AppBar"
-// import { Outlet } from "react-router-dom"
-// import css from './SharedLayout.module.css';
 import { Suspense } from "react";
 import Loader from "components/Loader/Loader";
 
-// export default function SharedLayout() {
-//     return (
-//         <div className={css.sharedLayout}>
-//             <AppBar />
-//             <Suspense fallback={<Loader />}>
-//                 <Outlet/>
-//             </Suspense>
-//         </div>
-//     )
-// }
 
 
 import { useSelector } from 'react-redux';
