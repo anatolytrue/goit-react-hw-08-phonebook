@@ -46,7 +46,7 @@ export default function SharedLayout() {
             <Stack spacing={2} sx={{ flexGrow: 1 }}>
                 <ThemeProvider theme={darkTheme }>
                     <Box sx={{ flexGrow: 1 }}>
-                        <AppBar position="fixed" color="primary" >
+                        <AppBar position="fixed" sx={{top: 0}} color="primary" >
                             <Container sx={{ mt: '1rem' }}>
                                 <Toolbar>
                                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

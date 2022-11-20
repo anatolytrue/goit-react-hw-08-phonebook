@@ -59,9 +59,10 @@ export default function RegisterPage() {
       email: email,
       password: password,
     });
-    setName('');
-    setEmail('');
-    setPassword('')
+  //   setName('');
+  //   setEmail('');
+  //   setPassword('')
+    dispatch(registerUser({ name, email, password }));
   };
 
   useEffect(() => {
@@ -85,7 +86,7 @@ export default function RegisterPage() {
         variant: 'error',
       });
     } else if (isError) {
-      enqueueSnackbar('Something went wrong, please try again later', {
+      enqueueSnackbar('Your data is entered incorrectly!', {
         variant: 'error',
       });
     }

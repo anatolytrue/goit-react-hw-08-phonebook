@@ -34,9 +34,10 @@ export default function LoginPage() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    await loginUser ({ email: email, password: password });
-    setEmail('');
-    setPassword('');
+    await loginUser({ email: email, password: password });
+    dispatch(loginUser({ email, password }));
+    // setEmail('');
+    // setPassword('');
   };
 
   const handleChange = ({ target: { name, value } }) => {

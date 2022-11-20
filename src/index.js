@@ -31,7 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               vertical: 'bottom',
               horizontal: 'center',
             }}
-            autoHideDuration={2000}
+            autoHideDuration={5000}
           >
             <ThemeProvider theme={mainTheme}>
             <App />

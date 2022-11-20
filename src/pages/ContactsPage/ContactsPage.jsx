@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import ContactForm from 'components/ContactForm/ContactForm';
 import  ContactList  from 'components/ContactList/ContactList';
-import  Filter  from 'components/Filter/Filter';
+import Filter from 'components/Filter/Filter';
+import {Box} from '@mui/material'
 
 
 export default function ContactsPage() {
@@ -12,11 +13,32 @@ export default function ContactsPage() {
   };
 
   return (
-    <div>
-      <ContactForm />
-      <h2>Contacts</h2>
+    <Box
+      component="div"
+      sx={{
+        minWidth: '20rem',
+        overflow: 'auto',
+        textOverflow: 'ellipsis',
+        m: '50px'
+      }}
+    >
+      <Box
+        component="div"
+        position="revative"
+        // sx={{
+        //   position: 'static'
+        // }}
+      >
+        <ContactForm />
+      </Box>
+      <Box
+        position="absolute"
+      >
+          <h2>Contacts</h2>
       <Filter filter={filter} handleChange={handleChange} />
       <ContactList filter={filter} />
-    </div>
+      </Box>
+    
+    </Box>
   )
 }
