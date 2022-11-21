@@ -62,7 +62,7 @@ export default function RegisterPage() {
   //   setName('');
   //   setEmail('');
   //   setPassword('')
-    dispatch(registerUser({ name, email, password }));
+    // dispatch(registerUser({ name, email, password }));
   };
 
   useEffect(() => {
